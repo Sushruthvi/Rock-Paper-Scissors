@@ -3,6 +3,7 @@ function getRandomInt(max) {
 }
   let computerPoints = 0;
   let humanPoints = 0;
+  let humanChoice;
 //TO GET COMPUTER CHOICE
 function getComputerChoice() {
   let choice = getRandomInt(3);
@@ -19,56 +20,52 @@ function getComputerChoice() {
 }
 
 function getHumanChoice() {
-  let humanChoice = prompt("Rock,Paper OR Scissor?");
-  return humanChoice;
+  const rockbutton=document.getElementById("rockbutton")
+  const paperbutton=document.getElementById("paperbutton")
+  const scissorsbutton=document.getElementById("scissorsbutton")
+  rockbutton.addEventListener("click",()=>{
+     humanChoice ="Rock";
+     computerChoice=getComputerChoice();
+     playRound(computerChoice,humanChoice);
+  })
+    paperbutton.addEventListener("click",()=>{
+     humanChoice ="Paper";
+     computerChoice=getComputerChoice();
+     playRound(computerChoice,humanChoice);
+      
+  })
+  scissorsbutton.addEventListener("click",()=>{
+    humanChoice="Scissors";
+    computerChoice=getComputerChoice();
+    playRound(computerChoice,humanChoice); 
+  })
+
 }
 
 function playRound(computerChoice, humanChoice) {
   if (computerChoice == "Rock" && humanChoice == "Paper") {
     humanPoints++;
-    return;
   }
   if (computerChoice == "Paper" && humanChoice == "Rock") {
     computerPoints++;
-    return;
   }
   if (computerChoice == "Scissors" && humanChoice == "Rock") {
     humanPoints++;
-    return;
   }
   if (computerChoice == "Rock" && humanChoice == "Scissors") {
     computerPoints++;
-    return;
   }
   if (computerChoice == "Scissors" && humanChoice == "Paper") {
     computerPoints++;
-    return;
   }
   if (computerChoice == "Paper" && humanChoice == "Scissors") {
     humanPoints++;
-    return;
   }
   if (computerChoice === humanChoice) {
   console.log("It's a tie!");
-  return;
   }
+  console.log("Human Point:"+humanPoints);
+  console.log("Computer Point:"+computerPoints);
 }
+getHumanChoice();
 
-function playGame() {
-   computerPoints = 0;
-   humanPoints = 0;
-  for (let i = 0; i < 5; i++) {
-    computerChoice=getComputerChoice();
-    humanChoice=getHumanChoice();
-    playRound(computerChoice,humanChoice);
-  }
-  if(computerPoints>humanPoints){
-    alert("Computer Wins");
-  }
-  else if(computerPoints<humanPoints){
-    alert("Human Wins");
-  }
-  else{
-    alert("Its a tie");
-  }
-}
