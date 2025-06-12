@@ -4,6 +4,7 @@ function getRandomInt(max) {
   let computerPoints = 0;
   let humanPoints = 0;
   let humanChoice;
+  let roundCounter=0;
 //TO GET COMPUTER CHOICE
 function getComputerChoice() {
   let choice = getRandomInt(3);
@@ -23,26 +24,41 @@ function getHumanChoice() {
   const rockbutton=document.getElementById("rockbutton")
   const paperbutton=document.getElementById("paperbutton")
   const scissorsbutton=document.getElementById("scissorsbutton")
+  const humansscore=document.getElementById("humanScore")
+  const computerscore=document.getElementById("computerScore")
+ 
   rockbutton.addEventListener("click",()=>{
-     humanChoice ="Rock";
-     computerChoice=getComputerChoice();
-     playRound(computerChoice,humanChoice);
+    humanChoice ="Rock";
+    computerChoice=getComputerChoice();
+    playRound(computerChoice,humanChoice);
+    humansscore.textContent=humanPoints;
+    computerscore.textContent=computerPoints;
+    
   })
+
     paperbutton.addEventListener("click",()=>{
-     humanChoice ="Paper";
-     computerChoice=getComputerChoice();
-     playRound(computerChoice,humanChoice);
+    humanChoice ="Paper";
+    computerChoice=getComputerChoice();
+    playRound(computerChoice,humanChoice);
+    humansscore.textContent=humanPoints;
+    computerscore.textContent=computerPoints;
       
   })
-  scissorsbutton.addEventListener("click",()=>{
+
+    scissorsbutton.addEventListener("click",()=>{
     humanChoice="Scissors";
     computerChoice=getComputerChoice();
     playRound(computerChoice,humanChoice); 
+    humansscore.textContent=humanPoints;
+    computerscore.textContent=computerPoints;
   })
 
 }
 
 function playRound(computerChoice, humanChoice) {
+
+  roundCounter++;
+  
   if (computerChoice == "Rock" && humanChoice == "Paper") {
     humanPoints++;
   }
@@ -66,6 +82,17 @@ function playRound(computerChoice, humanChoice) {
   }
   console.log("Human Point:"+humanPoints);
   console.log("Computer Point:"+computerPoints);
+  const finalresult=document.getElementById("finalResult")
+ 
+  if(roundCounter==5){
+    finalresult.textContent=humanPoints>computerPoints?"Human Wins":"Computer Wins"
+    roundCounter=0;
+    humanPoints=0;
+    computerPoints=0;
+  }
+  setTimeout(()=>{
+    finalresult.textContent="";
+  },2000)
 }
 getHumanChoice();
 
